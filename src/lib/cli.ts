@@ -9,16 +9,18 @@ const ExitCodes = {
     ExceptionThrown: 6,
 };
 
+// TODO 这个是咋索引的，通过读取哪个文件？
 import * as td from "typedoc";
 
 const app = new td.Application();
 
+// 读取 process.argv 作为 options
 app.options.addReader(new td.ArgumentsReader(0));
 app.options.addReader(new td.TypeDocReader());
 app.options.addReader(new td.PackageJsonReader());
 app.options.addReader(new td.TSConfigReader());
 app.options.addReader(new td.ArgumentsReader(300));
-
+//
 void run(app)
     .catch((error) => {
         console.error("TypeDoc exiting with unexpected error:");
@@ -79,7 +81,9 @@ async function run(app: td.Application) {
         return ExitCodes.Ok;
     }
 
+    //
     const project = app.convert();
+    //
     if (!project) {
         return ExitCodes.CompileError;
     }

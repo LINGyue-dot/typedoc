@@ -81,12 +81,14 @@ interface OffApiOptions {
 }
 
 // Regular expression used to split event strings.
+// 匹配一个或多个空格
 const eventSplitter = /\s+/;
 
 /**
  * Iterates over the standard `event, callback` (as well as the fancy multiple
  * space-separated events `"change blur", callback` and jQuery-style event
  * maps `{event: callback}`).
+ * 迭代标准的 {event: callback}
  */
 function eventsApi<T extends {}, U>(
     iteratee: EventIteratee<T, U>,
@@ -120,11 +122,13 @@ function eventsApi<T extends {}, U>(
             );
         }
     } else if (name && typeof name === "string" && eventSplitter.test(name)) {
+        // 如果有以空格隔开的多个事件名
         // Handle space separated event names by delegating them individually.
         for (names = name.split(eventSplitter); i < names.length; i++) {
             events = iteratee(events, names[i], callback, options);
         }
     } else {
+        // 单个事件
         // Finally, standard events.
         events = iteratee(events, <any>name, callback, options);
     }
@@ -134,8 +138,11 @@ function eventsApi<T extends {}, U>(
 
 /**
  * The reducing API that adds a callback to the `events` object.
+ * 将回调函数放入 events 中
+ * events 数据结构是 {[eventName]:[{},{}]}
  */
 function onApi(
+    // this._events
     events: EventHandlers,
     name: string,
     callback: EventCallback | undefined,
@@ -159,6 +166,7 @@ function onApi(
             priority: priority,
         });
 
+        // 从小到大排序
         handlers.sort((a, b) => b.priority - a.priority);
     }
 
@@ -465,10 +473,10 @@ export class EventDispatcher {
             name,
             callback,
             {
-                context: context,
-                ctx: this,
-                listening: listening,
-                priority: priority,
+                context: context, // plugin 的第三个参数
+                ctx: this, // converter instance
+                listening: listening, // false
+                priority: priority, // 0
             }
         );
 
@@ -653,6 +661,7 @@ export class EventDispatcher {
                         i = -1;
                     const l = events.length;
                     while (++i < l) {
+                        // 冒泡，是否执行全部的 events 事件
                         if (name.isPropagationStopped) {
                             return;
                         }
@@ -662,6 +671,7 @@ export class EventDispatcher {
                 }
             );
         } else {
+            // args ==> context symbol.project/reflection node(undefined)
             eventsApi(triggerApi, this._events, name, void 0, args);
         }
 

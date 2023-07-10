@@ -75,3 +75,10 @@ export * as Validation from "./validation";
 export * from "./tsutils";
 
 export { MinimalSourceFile } from "./minimalSourceFile";
+
+import util from "util";
+export function consoleInfo(obj: any) {
+    console.log(
+        util.inspect(obj, { showHidden: false, depth: null, colors: true })
+    );
+}

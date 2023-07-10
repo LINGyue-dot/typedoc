@@ -4,11 +4,10 @@
   "version": "0.24.8",
   "homepage": "https://typedoc.org",
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./src/index.ts",
     "./tsdoc.json": "./tsdoc.json",
     "./package.json": "./package.json"
   },
-  "types": "./dist/index.d.ts",
   "bin": {
     "typedoc": "bin/typedoc"
   },
@@ -39,7 +38,7 @@
     "@types/node": "14",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
-    "@typestrong/fs-fixture-builder": "github:TypeStrong/fs-fixture-builder#8abd1494280116ff5318dde2c50ad01e1663790c",
+    "@typestrong/fs-fixture-builder": "github:TypeStrong/fs-fixture-builder",
     "c8": "^7.13.0",
     "esbuild": "^0.17.16",
     "eslint": "^8.38.0",
@@ -47,6 +46,7 @@
     "prettier": "2.8.7",
     "puppeteer": "^13.5.2",
     "ts-node": "^10.9.1",
+    "typedoc-plugin-markdown": "^3.15.3",
     "typescript": "5.1.3"
   },
   "files": [
@@ -77,7 +77,8 @@
     "lint": "eslint . && npm run prettier -- --check .",
     "prettier": "prettier --config .config/.prettierrc.json --ignore-path .config/.prettierignore",
     "prepublishOnly": "node scripts/set_strict.js false && npm run build:prod && npm test",
-    "postpublish": "node scripts/set_strict.js true"
+    "postpublish": "node scripts/set_strict.js true",
+    "debug": "ts-node ./src/lib/cli.ts ./src/demo/father.ts --out ./docs  --commentStyle all --plugin ./src/plugins/inlineSource.ts"
   },
   "keywords": [
     "typescript",

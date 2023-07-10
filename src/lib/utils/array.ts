@@ -17,6 +17,7 @@ export function insertPrioritySorted<T extends { priority: number }>(
  * Inserts an item into an array sorted by order. If two items have the same order,
  * the item inserted later will be placed later in the array.
  * The array will be sorted with lower order being placed sooner.
+ * 按照 item.order 进行插入到 arr 中，order 越低越前面
  * @param arr modified by inserting item.
  * @param item
  */

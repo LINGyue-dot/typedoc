@@ -53,7 +53,10 @@ export interface TypeConverter<
     convertType(context: Context, type: TType, node: TNode): SomeType;
 }
 
+// convert map
+// 一种 kind 只能对应一个 actor 即一个 Converter 对象，例如 constructorConverter
 const converters = new Map<ts.SyntaxKind, TypeConverter>();
+// 加载所有的 convert
 export function loadConverters() {
     if (converters.size) return;
 
@@ -93,7 +96,9 @@ export function loadConverters() {
                 // Might happen if running on an older TS version.
                 continue;
             }
+            // 如果传入 assert 的是 false 就会报错
             assert(!converters.has(key));
+            // 一种 kind 只能对应一个 actor 即一个 Converter 对象，例如 constructorConverter
             converters.set(key, actor);
         }
     }
@@ -114,6 +119,12 @@ function maybeConvertType(
     return convertType(context, typeOrNode);
 }
 
+/**
+ * 调用 convert 将 tsc 解析来的 ts.Node 进行处理
+ * @param context
+ * @param typeOrNode
+ * @returns
+ */
 export function convertType(
     context: Context,
     typeOrNode: ts.Type | ts.TypeNode | undefined

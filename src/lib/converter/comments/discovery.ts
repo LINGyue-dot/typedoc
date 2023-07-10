@@ -136,6 +136,7 @@ export function discoverComment(
 
     const discovered: DiscoveredComment[] = [];
 
+    // 解析 comment 出来，用的是 ts 的方法
     for (const decl of symbol.declarations || []) {
         const text = decl.getSourceFile().text;
         if (wantedKinds[kind].includes(decl.kind)) {
@@ -309,6 +310,7 @@ function getRootModuleDeclaration(node: ts.ModuleDeclaration): ts.Node {
     return node;
 }
 
+// 传入 symbol.declaration 中的 ast
 function declarationToCommentNode(node: ts.Declaration): ts.Node | undefined {
     if (!node.parent) return node;
 

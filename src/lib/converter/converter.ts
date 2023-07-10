@@ -361,17 +361,21 @@ export class Converter extends ChildableComponent<
     ) {
         const node = entryPoint.sourceFile;
         const entryName = entryPoint.displayName;
+        // symbol 是 ts 中「符号」，symbol.declarations 就是 ast 节点数组
         const symbol = getSymbolForModuleLike(context, node);
+
         let moduleContext: Context;
 
         if (singleEntryPoint) {
             // Special case for when we're giving a single entry point, we don't need to
             // create modules for each entry. Register the project as this module.
+            // symbol 存到 context.project 里面去了
             context.project.registerReflection(context.project, symbol);
             context.project.comment = symbol
                 ? context.getComment(symbol, context.project.kind)
                 : context.getFileComment(node);
             context.trigger(
+                // 解析成 ast 完成并进行了当前文件级别的 comment 分析
                 Converter.EVENT_CREATE_DECLARATION,
                 context.project
             );

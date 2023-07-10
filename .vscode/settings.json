@@ -48,5 +48,6 @@
         "tsbuildinfo",
         "tsdoc",
         "typestrong"
-    ]
+    ],
+    "liveServer.settings.port": 5501
 }

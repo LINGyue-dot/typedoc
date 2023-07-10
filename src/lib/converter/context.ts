@@ -251,6 +251,7 @@ export class Context {
      * @param node  The triggering TypeScript node if available.
      */
     trigger(name: string, reflection: Reflection, node?: ts.Node) {
+        // reflection === context.project
         this.converter.trigger(name, this, reflection, node);
     }
 
@@ -259,6 +260,7 @@ export class Context {
         this._program = program;
     }
 
+    // 先解析第一个节点
     getComment(symbol: ts.Symbol, kind: ReflectionKind) {
         return getComment(
             symbol,

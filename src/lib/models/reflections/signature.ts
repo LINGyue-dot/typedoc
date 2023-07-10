@@ -7,6 +7,9 @@ import type { ReflectionKind } from "./kind";
 import type { Serializer, JSONOutput, Deserializer } from "../../serialization";
 import { SourceReference } from "../sources/file";
 
+/**
+ * 实例似乎是函数的 declarationReflection 专有的属性
+ */
 export class SignatureReflection extends Reflection {
     readonly variant = "signature";
 

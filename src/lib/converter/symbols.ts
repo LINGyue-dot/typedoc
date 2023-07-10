@@ -44,6 +44,7 @@ const symbolConverters: {
     [ts.SymbolFlags.Method]: convertFunctionOrMethod,
     [ts.SymbolFlags.Interface]: convertClassOrInterface,
     [ts.SymbolFlags.Property]: convertProperty,
+    //
     [ts.SymbolFlags.Class]: convertClassOrInterface,
     [ts.SymbolFlags.Constructor]: convertConstructor,
     [ts.SymbolFlags.Alias]: convertAlias,

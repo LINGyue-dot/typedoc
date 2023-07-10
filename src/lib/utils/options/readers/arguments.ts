@@ -12,6 +12,7 @@ const ARRAY_OPTION_TYPES = new Set<ParameterType | undefined>([
 
 /**
  * Obtains option values from command-line arguments
+ * 读取存储参数以及优先级
  */
 export class ArgumentsReader implements OptionsReader {
     readonly name = "arguments";
@@ -19,6 +20,8 @@ export class ArgumentsReader implements OptionsReader {
     readonly supportsPackages = false;
     private args: string[];
 
+    // process.argv[0] 是 node 路径 [1] 是执行脚本的路径，所以截取掉
+    // 命令行以空格进行分隔为数组
     constructor(priority: number, args = process.argv.slice(2)) {
         this.order = priority;
         this.args = args;

@@ -80,6 +80,9 @@ export function Component(options: ComponentOptions): ClassDecorator {
     };
 }
 
+/**
+ * 事件似乎只有 add 和 remove
+ */
 export class ComponentEvent extends Event {
     owner: ComponentHost;
 
@@ -231,6 +234,7 @@ export abstract class ChildableComponent<
             return <T>this._componentChildren[name];
         } else {
             const component: T =
+                // class
                 typeof componentClass === "function"
                     ? new (<ComponentClass<T>>componentClass)(this)
                     : componentClass;

@@ -11,6 +11,7 @@
         "incremental": true,
         "tsBuildInfoFile": "dist/.tsbuildinfo",
         // "skipLibCheck": true,
+        "noImplicitAny": true,
 
         "experimentalDecorators": true,
         "strict": true,
@@ -18,8 +19,8 @@
         // For tests
         "resolveJsonModule": true,
         // Linting
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
+        // "noUnusedLocals": true,
+        // "noUnusedParameters": true,
         "forceConsistentCasingInFileNames": true,
         // Library
         "preserveConstEnums": true,
@@ -35,12 +36,14 @@
         "jsx": "react",
         "jsxFactory": "JSX.createElement",
         "jsxFragmentFactory": "JSX.Fragment",
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
 
         // TS 5 introduced verbatimModuleSyntax and deprecated importsNotUsedAsValues
         // But that flag is intentionally very unfriendly to projects emitting CommonJS
         // so for now, we're going to ignore that deprecation.
         "ignoreDeprecations": "5.0",
-        "importsNotUsedAsValues": "error",
+        "importsNotUsedAsValues": "remove",
         "isolatedModules": true
     },
     "include": ["src"],

@@ -47,12 +47,11 @@ const supportedVersionMajorMinor = packageInfo.peerDependencies.typescript
  * The default TypeDoc main application class.
  *
  * This class holds the two main components of TypeDoc, the {@link Converter} and
- * the {@link Renderer}. When running TypeDoc, first the {@link Converter} is invoked which
- * generates a {@link ProjectReflection} from the passed in source files. The
- * {@link ProjectReflection} is a hierarchical model representation of the TypeScript
- * project. Afterwards the model is passed to the {@link Renderer} which uses an instance
+ * the {@link Renderer}. When running TypeDoc,
+ * first the {@link Converter} is invoked which generates a {@link ProjectReflection} from the passed in source files.
+ * The {@link ProjectReflection} is a hierarchical model representation of the TypeScript project. 内部用 model 来进行表示 ts 项目
+ * Afterwards the model is passed to the {@link Renderer} which uses an instance
  * of {@link Theme} to generate the final documentation.
- *
  * Both the {@link Converter} and the {@link Renderer} emit a series of events while processing the project.
  * Subscribe to these Events to control the application flow or alter the output.
  */
@@ -131,7 +130,9 @@ export class Application extends ChildableComponent<
 
         this.logger = new ConsoleLogger();
         this.options = new Options(this.logger);
+        // 读取文件将其转换为 model 数据格式
         this.converter = this.addComponent<Converter>("converter", Converter);
+        // 将 model 转为 HTML
         this.renderer = this.addComponent<Renderer>("renderer", Renderer);
     }
 
@@ -479,6 +480,7 @@ export class Application extends ChildableComponent<
         project: ProjectReflection,
         out: string
     ): Promise<void> {
+        // 
         const start = Date.now();
         out = Path.resolve(out);
         await this.renderer.render(project, out);
